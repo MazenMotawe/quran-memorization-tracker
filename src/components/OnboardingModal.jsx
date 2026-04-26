@@ -23,7 +23,7 @@ const OnboardingModal = () => {
             </svg>
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-textMain dark:text-white mb-2">أهلاً بك في "حافظ"</h2>
-          <p className="text-textSecondary dark:text-gray-400">لنقم بإعداد خطتك القرآنية معاً</p>
+          <p className="text-textSecondary dark:text-gray-400">لنقم بإعداد خطتك معاً</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
