@@ -18,17 +18,17 @@ export const QuranProvider = ({ children }) => {
   // State initialization from localStorage
   const [memorizedPages, setMemorizedPages] = useState(() => {
     const saved = localStorage.getItem('memorizedPages');
-    return saved ? parseInt(saved, 10) : 120; // Default mock 120
+    return saved ? parseInt(saved, 10) : 0; // Default 0 for new users
   });
 
   const [dailyTarget, setDailyTarget] = useState(() => {
     const saved = localStorage.getItem('dailyTarget');
-    return saved ? parseInt(saved, 10) : 5;
+    return saved ? parseInt(saved, 10) : 1;
   });
 
   const [streak, setStreak] = useState(() => {
     const saved = localStorage.getItem('streak');
-    return saved ? parseInt(saved, 10) : 12;
+    return saved ? parseInt(saved, 10) : 0;
   });
 
   // History format: { "2023-10-23": 5, "2023-10-22": 5 }
