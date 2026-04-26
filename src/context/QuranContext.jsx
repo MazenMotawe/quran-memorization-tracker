@@ -53,6 +53,10 @@ export const QuranProvider = ({ children }) => {
     return saved || 'forward'; // 'forward' (Fatiha -> End) or 'backward' (End -> Fatiha)
   });
 
+  const [isOnboarded, setIsOnboarded] = useState(() => {
+    return localStorage.getItem('isOnboarded') === 'true';
+  });
+
   // Save to localStorage whenever state changes
   useEffect(() => {
     localStorage.setItem('memorizedPages', memorizedPages.toString());
@@ -61,7 +65,8 @@ export const QuranProvider = ({ children }) => {
     localStorage.setItem('history', JSON.stringify(history));
     localStorage.setItem('theme', theme);
     localStorage.setItem('direction', memorizationDirection);
-  }, [memorizedPages, dailyTarget, streak, history, theme, memorizationDirection]);
+    localStorage.setItem('isOnboarded', isOnboarded.toString());
+  }, [memorizedPages, dailyTarget, streak, history, theme, memorizationDirection, isOnboarded]);
 
   // Derived state
   const remainingPages = TOTAL_PAGES - memorizedPages;
@@ -123,6 +128,12 @@ export const QuranProvider = ({ children }) => {
     setMemorizationDirection(prev => prev === 'forward' ? 'backward' : 'forward');
   };
 
+  const completeOnboarding = (direction, target) => {
+    setMemorizationDirection(direction);
+    setDailyTarget(target);
+    setIsOnboarded(true);
+  };
+
   // Provide state
   const value = {
     TOTAL_PAGES,
@@ -141,7 +152,9 @@ export const QuranProvider = ({ children }) => {
     updateDailyTarget,
     resetProgress,
     toggleTheme,
-    toggleDirection
+    toggleDirection,
+    completeOnboarding,
+    isOnboarded
   };
 
   return (

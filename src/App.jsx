@@ -7,12 +7,14 @@ import DailyInputCard from './components/DailyInputCard';
 import WeeklyCalendarCard from './components/WeeklyCalendarCard';
 import DailyTargetCard from './components/DailyTargetCard';
 import StreakCard from './components/StreakCard';
+import OnboardingModal from './components/OnboardingModal';
 
 function App() {
   return (
     <div className="min-h-screen bg-secondary dark:bg-[#121212] px-4 pb-4 md:px-8 md:pb-8 lg:px-12 lg:pb-12 pt-0 font-sans selection:bg-primary/20 transition-colors duration-300">
       <div className="max-w-[1400px] mx-auto">
         <Header />
+        <OnboardingModal />
         
         <main className="mt-8">
           <HeroSection />
