@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import SurahCard from './components/SurahCard';
@@ -56,6 +57,7 @@ function App() {
           </div>
         </main>
       </div>
+      <Analytics />
     </div>
   );
 }
