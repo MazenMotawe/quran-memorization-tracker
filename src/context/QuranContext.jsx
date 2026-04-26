@@ -117,6 +117,7 @@ export const QuranProvider = ({ children }) => {
       setMemorizedPages(0);
       setStreak(0);
       setHistory({});
+      setIsOnboarded(false);
     }
   };
 

@@ -14,8 +14,8 @@ const OnboardingModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="bg-white dark:bg-[#1e1e1e] w-full max-w-md rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-white/10 transform animate-in zoom-in-95 duration-300">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+      <div className="bg-white dark:bg-[#1e1e1e] w-full max-w-md rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-white/10 transform transition-all duration-300">
         <div className="text-center mb-8">
           <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
