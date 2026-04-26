@@ -26,10 +26,10 @@ function App() {
               
               {/* Visual Right Side (Start in RTL) - Spans 8 cols */}
               <div className="lg:col-span-8 flex flex-col gap-6 lg:gap-8">
+                <DailyInputCard />
                 <div className="flex-1">
                   <ProgressCard />
                 </div>
-                <DailyInputCard />
               </div>
 
               {/* Visual Left Side (End in RTL) - Spans 4 cols */}
