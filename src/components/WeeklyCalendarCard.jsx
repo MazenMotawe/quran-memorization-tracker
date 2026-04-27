@@ -14,10 +14,10 @@ const WeeklyCalendarCard = () => {
   for (let i = -3; i <= 3; i++) {
     const d = new Date(today);
     d.setDate(today.getDate() + i);
-    
+
     const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     const isToday = i === 0;
-    
+
     const pagesMemorized = history[dateStr] || 0;
     const pagesText = pagesMemorized > 0 ? `${pagesMemorized} صفحات` : '';
 
@@ -53,7 +53,7 @@ const WeeklyCalendarCard = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.8 }}
@@ -76,7 +76,7 @@ const WeeklyCalendarCard = () => {
         </div>
       </div>
 
-      <motion.div 
+      <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -86,7 +86,7 @@ const WeeklyCalendarCard = () => {
           <motion.div 
             key={idx} 
             variants={dayVariants}
-            whileHover={{ scale: 1.1, backgroundColor: day.isToday ? '' : 'rgba(40, 167, 140, 0.1)' }}
+            whileHover={{ scale: 1.1 }}
             className={`flex-shrink-0 w-20 flex flex-col items-center justify-between p-3 rounded-2xl border transition-all ${
               day.isToday 
                 ? 'border-primary dark:border-[#28a78c] bg-white dark:bg-[#2d2d2d] shadow-sm scale-105' 
