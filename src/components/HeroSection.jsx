@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useQuranContext } from '../context/QuranContext';
+import { motion } from 'framer-motion';
 
 const DAILY_QUOTES = [
   { text: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ", source: "صحيح البخاري" },
@@ -45,6 +46,7 @@ function getTodayQuoteIndex() {
   return daysSinceEpoch % DAILY_QUOTES.length;
 }
 
+
 const HeroSection = () => {
   const { memorizationDirection, toggleDirection } = useQuranContext();
   const todayQuote = useMemo(() => {
@@ -52,28 +54,69 @@ const HeroSection = () => {
     return DAILY_QUOTES[index];
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
   return (
-    <div className="flex flex-col lg:flex-row items-stretch justify-between mb-8 gap-6">
+    <motion.div 
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="flex flex-col lg:flex-row items-stretch justify-between mb-8 gap-6"
+    >
       <div className="text-right shrink-0 flex flex-col justify-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-primary dark:text-[#28a78c] mb-3">
+        <motion.h2 
+          variants={itemVariants}
+          className="text-4xl md:text-5xl font-bold text-primary dark:text-[#28a78c] mb-3"
+        >
           نور الله قلبك بالقرآن
-        </h2>
-        <div className="flex items-center gap-3 justify-end">
+        </motion.h2>
+        <motion.div 
+          variants={itemVariants}
+          className="flex items-center gap-3 justify-end"
+        >
            <p className="text-textLight dark:text-gray-400 text-lg">
             تتبع رحلتك في حفظ كتاب الله
           </p>
           <div className="h-6 w-px bg-gray-300 dark:bg-gray-700 mx-2"></div>
-          <button 
+          <motion.button 
+            whileHover={{ scale: 1.05, backgroundColor: 'rgba(40, 167, 140, 0.1)' }}
+            whileTap={{ scale: 0.95 }}
             onClick={toggleDirection}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white dark:bg-[#1e1e1e] border border-black/5 dark:border-white/5 text-xs font-bold text-primary dark:text-[#28a78c] hover:bg-primary/5 transition-all shadow-sm"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white dark:bg-[#1e1e1e] border border-black/5 dark:border-white/5 text-xs font-bold text-primary dark:text-[#28a78c] transition-all shadow-sm"
           >
             {memorizationDirection === 'forward' ? 'بدءاً من الفاتحة' : 'بدءاً من الخواتيم'}
-            <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
-          </button>
-        </div>
+            <motion.div 
+              animate={{ scale: [1, 1.5, 1] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              className="w-2 h-2 rounded-full bg-accent"
+            ></motion.div>
+          </motion.button>
+        </motion.div>
       </div>
 
-      <div className="bg-[#e9ece9] dark:bg-[#1e1e1e] rounded-[2rem] p-6 md:p-8 flex-1 w-full shadow-sm border border-black/5 dark:border-white/5 text-right transition-colors duration-300">
+      <motion.div 
+        variants={itemVariants}
+        whileHover={{ y: -5 }}
+        className="bg-[#e9ece9] dark:bg-[#1e1e1e] rounded-[2rem] p-6 md:p-8 flex-1 w-full shadow-sm border border-black/5 dark:border-white/5 text-right transition-colors duration-300"
+      >
         <p className="text-primary dark:text-[#28a78c] text-sm font-medium mb-1">اقتباسات يومية</p>
         <div className="flex items-baseline gap-3 flex-wrap">
           <p className="text-textDark dark:text-gray-200 font-medium text-lg leading-relaxed">
@@ -83,8 +126,8 @@ const HeroSection = () => {
             — {todayQuote.source}
           </span>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

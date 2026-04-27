@@ -1,6 +1,7 @@
 import { Sun, Moon, RotateCcw } from 'lucide-react';
 import { useQuranContext } from '../context/QuranContext';
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 const Header = () => {
   const { resetProgress, toggleTheme, theme } = useQuranContext();
@@ -15,30 +16,47 @@ const Header = () => {
   }, [theme]);
 
   return (
-    <header className="flex items-center justify-between py-6">
-      <div className="flex items-center gap-3">
+    <motion.header 
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="flex items-center justify-between py-6"
+    >
+      <motion.div 
+        initial={{ x: -20, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="flex items-center gap-3"
+      >
         {/* App Logo */}
-        <div className="w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden bg-white shadow-sm border border-primary/10">
+        <motion.div 
+          whileHover={{ scale: 1.05, rotate: 5 }}
+          className="w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden bg-white shadow-sm border border-primary/10"
+        >
           <img src="/logo.png" alt="حافظ القرآن" className="w-full h-full object-cover" />
-        </div>
+        </motion.div>
         <h1 className="text-2xl font-bold text-primary dark:text-[#28a78c]">حافظ القرآن</h1>
-      </div>
+      </motion.div>
       <div className="flex items-center gap-4">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
           onClick={toggleTheme}
           className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-textDark dark:text-gray-200"
         >
           {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={resetProgress}
           className="flex items-center gap-2 px-4 py-2 border border-red-200 text-red-600 rounded-lg hover:bg-red-50 transition-colors font-medium"
         >
           <RotateCcw className="w-4 h-4" />
           إعادة التعيين
-        </button>
+        </motion.button>
       </div>
-    </header>
+    </motion.header>
   );
 };
 

@@ -1,6 +1,6 @@
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-
+import { motion, AnimatePresence } from 'framer-motion';
 import { useQuranContext } from '../context/QuranContext';
 
 const CircularProgress = ({ value }) => {
@@ -16,10 +16,20 @@ const CircularProgress = ({ value }) => {
           pathColor: isDark ? '#f1c40f' : '#c99b3b', 
           trailColor: isDark ? '#2d2d2d' : '#f0eade',
           strokeLinecap: 'round',
+          pathTransitionDuration: 1.5,
         })}
       >
         <div className="flex flex-col items-center justify-center mt-2">
-          <span className="text-5xl font-bold text-primary dark:text-[#28a78c]">{value}%</span>
+          <AnimatePresence mode="wait">
+            <motion.span 
+              key={value}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="text-5xl font-bold text-primary dark:text-[#28a78c]"
+            >
+              {value}%
+            </motion.span>
+          </AnimatePresence>
           <span className="text-base text-textLight dark:text-gray-400 font-medium">تم الإنجاز</span>
         </div>
       </CircularProgressbarWithChildren>
