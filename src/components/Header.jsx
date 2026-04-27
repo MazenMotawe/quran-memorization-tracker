@@ -1,10 +1,12 @@
 import { Sun, Moon, RotateCcw } from 'lucide-react';
 import { useQuranContext } from '../context/QuranContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import ResetConfirmModal from './ResetConfirmModal';
 
 const Header = () => {
   const { resetProgress, toggleTheme, theme } = useQuranContext();
+  const [showResetModal, setShowResetModal] = useState(false);
 
   // Apply theme to HTML tag
   useEffect(() => {
@@ -49,13 +51,22 @@ const Header = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={resetProgress}
+          onClick={() => setShowResetModal(true)}
           className="flex items-center gap-2 px-4 py-2 border border-red-200 text-red-600 rounded-lg hover:bg-red-50 transition-colors font-medium"
         >
           <RotateCcw className="w-4 h-4" />
           إعادة التعيين
         </motion.button>
       </div>
+
+      <ResetConfirmModal 
+        isOpen={showResetModal}
+        onClose={() => setShowResetModal(false)}
+        onConfirm={() => {
+          resetProgress();
+          setShowResetModal(false);
+        }}
+      />
     </motion.header>
   );
 };

@@ -113,12 +113,10 @@ export const QuranProvider = ({ children }) => {
   };
 
   const resetProgress = () => {
-    if (window.confirm("هل أنت متأكد من رغبتك في إعادة تعيين تقدمك بالكامل؟")) {
-      setMemorizedPages(0);
-      setStreak(0);
-      setHistory({});
-      setIsOnboarded(false);
-    }
+    setMemorizedPages(0);
+    setStreak(0);
+    setHistory({});
+    setIsOnboarded(false);
   };
 
   const toggleTheme = () => {

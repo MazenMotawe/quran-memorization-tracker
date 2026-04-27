@@ -36,8 +36,14 @@ const DailyInputCard = () => {
       <div className="flex w-full md:w-auto items-center gap-4 flex-1">
         <input 
           type="number" 
+          min="0"
           value={pages}
-          onChange={(e) => setPages(e.target.value)}
+          onChange={(e) => {
+            const val = e.target.value;
+            if (val === '' || parseInt(val, 10) >= 0) {
+              setPages(val);
+            }
+          }}
           placeholder="0"
           className="bg-secondary dark:bg-[#2d2d2d] border border-transparent outline-none focus:border-primary/30 dark:focus:border-[#28a78c]/30 focus:bg-white dark:focus:bg-[#2d2d2d] text-center text-textDark dark:text-gray-200 font-bold text-xl rounded-xl w-full py-3 px-4 transition-all"
         />
