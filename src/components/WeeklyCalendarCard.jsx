@@ -1,22 +1,37 @@
+import { useState } from 'react';
 import { Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
 import { useQuranContext } from '../context/QuranContext';
 import { motion } from 'framer-motion';
 
 const WeeklyCalendarCard = () => {
   const { history } = useQuranContext();
+  const [pivotDate, setPivotDate] = useState(new Date());
 
-  // Generate last 7 days
+  // Generate 7 days centered around pivotDate
   const today = new Date();
   const days = [];
   const dayNames = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
   const monthNames = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
 
+  const handlePrevWeek = () => {
+    const newDate = new Date(pivotDate);
+    newDate.setDate(pivotDate.getDate() - 7);
+    setPivotDate(newDate);
+  };
+
+  const handleNextWeek = () => {
+    const newDate = new Date(pivotDate);
+    newDate.setDate(pivotDate.getDate() + 7);
+    setPivotDate(newDate);
+  };
+
   for (let i = -3; i <= 3; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i);
+    const d = new Date(pivotDate);
+    d.setDate(pivotDate.getDate() + i);
 
     const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    const isToday = i === 0;
+    const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    const isToday = dateStr === todayStr;
 
     const pagesMemorized = history[dateStr] || 0;
     const pagesText = pagesMemorized > 0 ? `${pagesMemorized} صفحات` : '';
@@ -30,7 +45,7 @@ const WeeklyCalendarCard = () => {
     });
   }
 
-  const currentMonth = `${monthNames[today.getMonth()]} ${today.getFullYear()}`;
+  const currentMonth = `${monthNames[pivotDate.getMonth()]} ${pivotDate.getFullYear()}`;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -66,11 +81,17 @@ const WeeklyCalendarCard = () => {
           <h4 className="font-bold text-textDark dark:text-gray-200 text-lg">جدول الحفظ الأسبوعي</h4>
         </div>
         <div className="flex items-center gap-2 text-sm font-bold text-textDark dark:text-gray-200">
-          <button className="p-1 hover:bg-secondary dark:hover:bg-[#2d2d2d] rounded-full transition-colors">
+          <button 
+            onClick={handlePrevWeek}
+            className="p-1 hover:bg-secondary dark:hover:bg-[#2d2d2d] rounded-full transition-colors"
+          >
             <ChevronRight className="w-4 h-4" />
           </button>
           <span>{currentMonth}</span>
-          <button className="p-1 hover:bg-secondary dark:hover:bg-[#2d2d2d] rounded-full transition-colors">
+          <button 
+            onClick={handleNextWeek}
+            className="p-1 hover:bg-secondary dark:hover:bg-[#2d2d2d] rounded-full transition-colors"
+          >
             <ChevronLeft className="w-4 h-4" />
           </button>
         </div>
